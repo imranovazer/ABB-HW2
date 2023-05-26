@@ -6,7 +6,7 @@ const jsMinify = require('gulp-js-minify');
 const uglify = require('gulp-uglify');
 const clean = require('gulp-clean');
 const concat = require('gulp-concat');
-const imagemin = require('gulp-imagemin');
+const imagemin = require('gulp-imagemin')
 const autoprefixer = require('gulp-autoprefixer');
 
 // Compile SCSS files into CSS, add vendor prefixes, and remove unused CSS code
@@ -22,7 +22,7 @@ gulp.task('styles', function () {
 gulp.task('images', function () {
     return gulp.src('src/images/**/*')
         .pipe(imagemin())
-        .pipe(gulp.dest('dist/img'));
+        .pipe(gulp.dest('dist/images'));
 });
 // Concatenate and minify JavaScript files
 gulp.task('scripts', function () {
@@ -36,9 +36,8 @@ gulp.task('clean', function () {
         .pipe(clean());
 });
 
-
 // Development task
-gulp.task('dev', gulp.series('styles', 'scripts', function () {
+gulp.task('dev', gulp.series('styles', 'scripts', 'images', function () {
     // Start the server
     browserSync.init({
         server: {
@@ -48,12 +47,13 @@ gulp.task('dev', gulp.series('styles', 'scripts', function () {
 
     // Watch for changes in *.js and *.scss files
     gulp.watch('src/scripts/*.js', gulp.series('scripts')).on('change', browserSync.reload);
-    gulp.watch('src/styles/**/*.scss', gulp.series('styles')).on('change', browserSync.reload);
+    gulp.watch('src/styles/*.scss', gulp.series('styles')).on('change', browserSync.reload);
+    gulp.watch('src/images/', gulp.series('images')).on('change', browserSync.reload);
 }));
 
 // Build task
-gulp.task('build', gulp.series('clean', 'styles', 'scripts', 'images', function () {
-    return gulp.src('src/*.html')
+gulp.task('build', gulp.series('clean', 'styles', 'scripts', function () {
+    return gulp.src('./*.html')
         .pipe(gulp.dest('dist'));
 }));
 
