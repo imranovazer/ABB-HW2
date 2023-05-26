@@ -1,37 +1,102 @@
-@media screen and ( max-width : 768px) {
+@import "variables";
 
-    nav {
-        
-        .container {
-            max-width: 320px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
+nav {
+  .container {
+    padding: 30px 0;
+  }
+  .dropdown {
+    position: absolute;
+    top: 67px;
+    display: none;
+    &--active {
+      display: block;
+    }
+    width: 182px;
 
-            .button__nav {
-                width: 44px;
-                height: 37px;
-                background-color: black;
-                display: flex;
-                flex-direction: column;
-                border: none;
-                align-items: center;
-                justify-content: center;
-                gap: 2px;
-                cursor: pointer;
+    background-color: #f5f5f5;
+    color: $subheader-font;
+    font-size: 11px;
+    font-weight: 400;
+    li {
+      list-style-type: none;
+      padding: 10px;
+      cursor: pointer;
+      &:hover {
+        background-color: #e5e5e5;
+      }
+    }
+  }
+}
 
-                .line {
-                    width: 17px;
-                    height: 2px;
-
-                    background-color: white;
-                }
-
-            }
-
-        }
-
+nav {
+  .container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .navlink {
+      width: 100%;
+      color: $subheader-font;
+      flex-direction: row;
+      display: flex;
+      justify-content: space-evenly;
+      font-size: 11px;
+      font-weight: 400;
+      li {
+        list-style-type: none;
+        padding: 10px;
+        cursor: pointer;
+      }
     }
 
+    .button__nav {
+      display: none;
+      width: 44px;
+      height: 37px;
+      background-color: black;
 
+      flex-direction: column;
+      border: none;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+
+      .line {
+        width: 17px;
+        height: 2px;
+
+        background-color: white;
+      }
+    }
+    .button__nav-x {
+      @extend .button__nav;
+
+      .line {
+        position: absolute;
+        &__one {
+          transform: rotateZ(45deg);
+        }
+        &__two {
+          transform: rotateZ(-45deg);
+        }
+      }
+    }
+    .button__nav--active {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  nav .container .navlink {
+    display: none;
+  }
+  nav .container .button__nav--active {
+    display: flex;
+  }
+}
+@media screen and (min-width: 768px) {
+  nav .dropdown--active {
+    display: none;
+  }
 }
