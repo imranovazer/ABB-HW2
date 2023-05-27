@@ -50,6 +50,9 @@
 
 .instagram-shot {
   margin-top: 70px;
+  .container {
+    padding: 30px 0;
+  }
   &__header {
     color: $subheader-font;
     font-size: 14px;
